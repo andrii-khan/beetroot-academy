@@ -32,6 +32,23 @@ switch ($lang) {
         $translation = $labels['en'];
         break;
 }
+
+
+//    $ages = array_column($users, 'age');
+//    $key = array_search(75, $ages);
+
+//    if($key !== false) {
+//        echo "The age found";
+//    } else {
+//        echo "NOT FOUND";
+//    }
+//    var_dump($ages);
+//    echo "<br>";
+//    rsort($ages);
+//    var_dump($ages);
+//    echo "<br>";
+//    var_dump(count($ages));
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,7 +69,7 @@ switch ($lang) {
         <a href="?lang=ua" class="badge badge-secondary">Украинский</a>
         <a href="?lang=en" class="badge badge-success">Английский</a>
     </div>
-    <form method="post" action="user.php">
+    <form method="post" action="stats.php">
         <div class="form-group">
             <label for="name"><?php echo $translation['name']; ?></label>
             <input type="text" class="form-control" id="name" name="name" placeholder="Введите Имя"
@@ -95,6 +112,7 @@ switch ($lang) {
             <?php endif; ?>
         </div>
         <div class="form-group">
+            <?php $gender = empty($_POST['gender']) ? 'Other' : $_POST['gender']; ?>
             <label for="gender"><?php echo $translation['gender']; ?></label>
             <select class="form-control" id="gender" name="gender">
                 <option disabled selected>Выберите пол</option>
