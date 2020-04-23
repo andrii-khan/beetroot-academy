@@ -22,7 +22,7 @@ $users = [
         'age' => 45,
         'gender' => 'man',
         'avatar' => 'https://pbs.twimg.com/profile_images/427547618600710144/wCeLVpBa_400x400.jpeg',
-        'animals' => []
+        'animals' => ['alligator', 'cat', 'dog']
     ],
     [
         'name' => 'Angela',
@@ -37,17 +37,24 @@ $users = [
 if (!empty($_POST)) {
     $users[] = $_POST;
 }
-
+// Search Max Ages in Users
 $ages = array_column($users, 'age');
-$maxAge = max($ages);
-$maxAgeId = array_search($maxAge, $ages);
-$olderUser = $users[$maxAgeId];
-$selectName = array_column($users, 'name');
-$userID = array_search('Angela', $selectName);
-$jack = $users[$userID];
-
+$maxAge = array_keys($ages, max($ages));
+$olderUser = [];
+foreach ($maxAge as $index){
+    $olderUser[] = $users[$index];
+}
+// Search Jack
+$selectJack = array_column($users, 'name');
+$jackID = array_search('Jack', $selectJack);
+$jack = $users[$jackID];
+// Select Random
 $randomUserID = rand(0, count($users) - 1);
 $randomUser = $users[$randomUserID];
+// Search Merkel
+$selectMerkel = array_column($users, 'surname');
+$merkelID = array_search('Merkel', $selectMerkel);
+$merkel = $users[$merkelID];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -61,51 +68,81 @@ $randomUser = $users[$randomUserID];
 <div class="container">
     <h1>Статистика</h1>
     <ul>
-        <li>Самый старый
-            пользователь: <?php echo $olderUser['name'] . " " . $olderUser['surname'] . " " . $olderUser['age']; ?></li>
-        <li>Общее количество Юзеров: <?php echo count($users); ?></li>
-    </ul>
-    <table class="table">
-        <?php foreach ($jack as $item) : ?>
-
+        <?php foreach ($olderUser as $item) : ?>
+            <li>Самый старый пользователь: <?php echo $item['name'] .' '. $item['surname'] .' Возраст: '. $item['age']; ?></li>
         <?php endforeach; ?>
 
-        <thead>
+        <li>Общее количество Юзеров: <?php echo count($users); ?></li>
+    </ul>
+    <table class="table table-hover">
+        <thead class="thead-dark">
         <tr>
-            <?php foreach ($jack as $index => $item) : ?>
-                <th scope="col"><?php echo $index ?></th>
-            <?php endforeach; ?>
+            <td>index</td>
+            <td>Name:</td>
+            <td>Surname</td>
+            <td>Age:</td>
+            <td>Gender:</td>
+            <td>Avatar:</td>
+            <td>Animals:</td>
         </tr>
         </thead>
         <tbody>
         <tr>
-            <td><?php echo $jack['name'] ?></td>
-            <td><?php echo $jack['surname'] ?></td>
+            <td><?php echo $jackID; ?></td>
+            <td><?php echo $jack['name']; ?></td>
+            <td><?php echo $jack['surname']; ?></td>
             <td><?php echo $jack['age'] ?></td>
-            <td><?php echo $jack['gender'] ?></td>
-            <td><img width="50px" src="<?php echo $jack['avatar'] ?>" alt="<?php echo $jack['name'] ?>"></td>
+            <td><?php echo $jack['gender']; ?></td>
+            <td><img width="50px" src="<?php echo $jack['avatar']; ?>" alt="<?php echo $jack['name']; ?>"></td>
             <td>
-                <?php foreach ($jack['animals'] as $item) : ?>
-                    <?php echo $item ?>
-                <?php endforeach; ?>
+                <ul>
+                    <?php foreach ($jack['animals'] as $item) : ?>
+                        <li>
+                            <?php echo $item; ?>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
             </td>
         </tr>
         <tr>
-            <td><?php echo $randomUser['name'] ?></td>
-            <td><?php echo $randomUser['surname'] ?></td>
-            <td><?php echo $randomUser['age'] ?></td>
-            <td><?php echo $randomUser['gender'] ?></td>
-            <td><img width="50px" src="<?php echo $randomUser['avatar'] ?>" alt="<?php echo $randomUser['name'] ?>"></td>
+            <td><?php echo $randomUserID; ?></td>
+            <td><?php echo $randomUser['name']; ?></td>
+            <td><?php echo $randomUser['surname']; ?></td>
+            <td><?php echo $randomUser['age']; ?></td>
+            <td><?php echo $randomUser['gender']; ?></td>
+            <td><img width="50px" src="<?php echo $randomUser['avatar'] ?>" alt="<?php echo $randomUser['name'] ?>">
+            </td>
             <td>
-                <?php foreach ($randomUser['animals'] as $item) : ?>
-                    <?php echo $item ?>
-                <?php endforeach; ?>
+                <ul>
+                    <?php foreach ($randomUser['animals'] as $item) : ?>
+                        <li>
+                            <?php echo $item ?>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
             </td>
         </tr>
-
+        <tr>
+            <td><?php echo $merkelID; ?></td>
+            <td><?php echo $merkel['name']; ?></td>
+            <td><?php echo $merkel['surname']; ?></td>
+            <td><?php echo $merkel['age']; ?></td>
+            <td><?php echo $merkel['gender']; ?></td>
+            <td><img width="50px" src="<?php echo $merkel['avatar'] ?>" alt="<?php echo $merkel['name'] ?>">
+            </td>
+            <td>
+                <ul>
+                    <?php foreach ($merkel['animals'] as $item) : ?>
+                        <li>
+                            <?php echo $item ?>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </td>
+        </tr>
         </tbody>
     </table>
-    <a class="button" href="user.php">Регистрация</a>
+    <a class="button" href="user.php">Перейти на страницу регистрации</a>
 </div>
 </body>
 </html>
