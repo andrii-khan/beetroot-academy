@@ -22,7 +22,7 @@ $users = [
         'age' => 45,
         'gender' => 'man',
         'avatar' => 'https://pbs.twimg.com/profile_images/427547618600710144/wCeLVpBa_400x400.jpeg',
-        'animals' => ['alligator', 'cat', 'dog']
+        'animals' => ['cat', 'dog', 'alligator']
     ],
     [
         'name' => 'Angela',
@@ -30,10 +30,9 @@ $users = [
         'age' => 65,
         'gender' => 'woman',
         'avatar' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Besuch_Bundeskanzlerin_Angela_Merkel_im_Rathaus_K%C3%B6ln-09916.jpg/330px-Besuch_Bundeskanzlerin_Angela_Merkel_im_Rathaus_K%C3%B6ln-09916.jpg',
-        'animals' => ['dog', 'parrot', 'horse']
+        'animals' => ['parrot', 'horse', 'dog']
     ]
 ];
-
 if (!empty($_POST)) {
     $users[] = $_POST;
 }
@@ -132,6 +131,7 @@ $merkel = $users[$merkelID];
             </td>
             <td>
                 <ul>
+                    <?php sort($merkel['animals']) ?>
                     <?php foreach ($merkel['animals'] as $item) : ?>
                         <li>
                             <?php echo $item ?>
