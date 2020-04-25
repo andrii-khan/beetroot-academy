@@ -1,36 +1,41 @@
-<?php
-$name = "Andrii";
-$surname = "Khan";
-$age = 28;
-$year = 2020;
-$milenium = ceil($year/1000);
-$daysLive = $age * 365;
-echo "My name is $name $surname. Days lived $daysLive";
-echo "<br>";
-echo "The year is: $milenium";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chess Desk</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <h1 class="text-center">Chess Desk</h1>
+    <div class="desk-wrap">
+        <div class="desk">
+            <?php $i = 0; $b = 0; ?>
+            <?php for ($row = 0; $row < 8; $row++): $b++;?>
 
-define('DOLAR_COST', 27.2);
-$dollar = 100;
-$grivna = 100;
-$grivnaToDollar = round($grivna / DOLAR_COST, 2);
-$dollarToGrivna = round($dollar * DOLAR_COST, 2);
-echo "<br>";
-echo "100$ сегодня стоят $dollarToGrivna гривен";
-echo "<br>";
-echo "100грн сегодня стоят $grivnaToDollar долларов";
-echo "<br>";
+                <?php if ($b === 1 || $b === 8): ?>
+                    <div class="letter <?php echo $b === 1 ? 'top' : 'bottom' ?>">
+                        <?php for ($letter = 0; $letter < 8; $letter++) : ?>
+                            <span><?php echo chr(65 + $letter); ?></span>
+                        <?php endfor; ?>
+                    </div>
+                    <div class="number <?php echo $b === 1 ? 'left' : 'right' ?>">
+                        <?php for ($number = 0; $number < 8; $number++) : ?>
+                            <span><?php echo 8 - $number ?></span>
+                        <?php endfor; ?>
+                    </div>
+                <?php endif; ?>
 
-$user = [
-    'name' => $name,
-    'surname' => $surname,
-    'age' => $age,
-    'days_live' => $daysLive,
-    'milenium' => $milenium,
-];
-
-echo "<pre>";
-print_r($user);
-echo "</pre>";
-
-echo "My name is {$user['name']} {$user['surname']}. I'm {$user['age']}. Days lived {$user['days_live']}. Milenium {$user['milenium']}";
-?>
+                <div class="row-chess <?php echo ($b % 2 === 0) ? 'even' : 'odd'; ?>">
+                    <?php for ($cell = 0; $cell < 8; $cell++) : ?>
+                        <div class="cell <?php echo $cell % 2 === 0 ? 'odd' : 'even' ?>"></div>
+                    <?php endfor; ?>
+                </div>
+            <?php endfor; ?>
+        </div>
+    </div>
+</div>
+</body>
+</html>

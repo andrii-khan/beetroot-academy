@@ -1,0 +1,83 @@
+.desk {
+    height: 80vw;
+    width: 80vw;
+    max-width: 800px;
+    max-height: 800px;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #ccc;
+    border: 1px solid black;
+    margin: 40px auto;
+    padding: 20px;
+    position: relative;
+}
+.row-chess {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+.cell {
+    width: calc(100% / 8);
+    /*height: 100%;*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    color: brown;
+}
+.row-chess.even .cell.odd {
+    background-color: black;
+}
+.row-chess.even .cell.even {
+    background-color: white;
+}
+.row-chess.even .cell.odd {
+    background-color: black;
+}
+.row-chess.odd .cell.odd {
+    background-color: white;
+}
+.row-chess.odd .cell.even {
+    background-color: black;
+}
+.letter, .number {
+    position: absolute;
+}
+.letter span, .number span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    width: 100%;
+    height: 100%;
+    font-weight: bold;
+}
+.letter.top, .letter.bottom {
+    top: 10px;
+    left: 20px;
+    right: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+.letter.bottom {
+    top: auto;
+    bottom: 10px;
+    transform: translateY(50%);
+}
+.letter.top {
+    transform: rotate(180deg) translateY(50%);
+}
+.number.left, .number.right {
+    top: 20px;
+    bottom: 20px;
+    left: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transform: translateX(-50%);
+}
+.number.right {
+    left: auto;
+    right: 10px;
+    transform: rotate(180deg) translateX(-50%);
+}
