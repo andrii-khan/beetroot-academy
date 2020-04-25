@@ -116,6 +116,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-echo "Hello $USER"
-echo -e "\e[31;5m$(php -v)\e[0m"
-echo -e "\e[34;1m$(apache2 -v)\e[0m"
+PHP_VESION=`php -v | grep -Po '^PHP[^-]+'`
+APACHE_VERSION=`apache2 -v | grep -Po 'Apache[^ ]+'`
+echo -e "Hello $USER. You are using \e[31;5m${PHP_VESION}\e[0m and \e[34;1m${APACHE_VERSION}\e[0m"

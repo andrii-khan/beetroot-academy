@@ -6,7 +6,7 @@ $users = [
         'age' => 75,
         'gender' => 'man',
         'avatar' => 'https://i.ytimg.com/vi/sDnPs_V8M-c/hqdefault.jpg',
-        'animals' => ['dog']
+        'animals' => ['dog', 'horse']
     ],
     [
         'name' => 'Alice',
@@ -22,15 +22,15 @@ $users = [
         'age' => 45,
         'gender' => 'man',
         'avatar' => 'https://pbs.twimg.com/profile_images/427547618600710144/wCeLVpBa_400x400.jpeg',
-        'animals' => ['cat', 'dog', 'alligator']
+        'animals' => ['cat', 'dog', 'parrot']
     ],
     [
         'name' => 'Angela',
         'surname' => 'Merkel',
-        'age' => 65,
+        'age' => 60,
         'gender' => 'woman',
         'avatar' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Besuch_Bundeskanzlerin_Angela_Merkel_im_Rathaus_K%C3%B6ln-09916.jpg/330px-Besuch_Bundeskanzlerin_Angela_Merkel_im_Rathaus_K%C3%B6ln-09916.jpg',
-        'animals' => ['parrot', 'horse', 'dog']
+        'animals' => ['alligator', 'horse', 'dog']
     ]
 ];
 if (!empty($_POST)) {
@@ -40,20 +40,68 @@ if (!empty($_POST)) {
 $ages = array_column($users, 'age');
 $maxAge = array_keys($ages, max($ages));
 $olderUser = [];
-foreach ($maxAge as $index){
+foreach ($maxAge as $index) {
     $olderUser[] = $users[$index];
 }
-// Search Jack
-$selectJack = array_column($users, 'name');
-$jackID = array_search('Jack', $selectJack);
-$jack = $users[$jackID];
-// Select Random
-$randomUserID = rand(0, count($users) - 1);
-$randomUser = $users[$randomUserID];
-// Search Merkel
-$selectMerkel = array_column($users, 'surname');
-$merkelID = array_search('Merkel', $selectMerkel);
-$merkel = $users[$merkelID];
+
+if (!empty($_GET['sort'])) {
+    switch ($_GET['sort']) {
+        case 'id':
+            if (!empty($_GET['order']) && $_GET['order'] == 'desc') {
+                krsort($users);
+            } else {
+                ksort($users);
+            }
+            $users = array_values($users);
+            break;
+    }
+}
+$animals = [];
+foreach ($users as $user) {
+    $animals = array_merge($animals, $user['animals']);
+}
+
+$animalsFilter = array_unique($animals);
+
+if (!empty($_GET['filter'])) {
+    switch ($_GET['filter']) {
+        case 'man':
+            foreach ($users as $key => $user) {
+                if ($user['gender'] !== 'man') {
+                    unset($users[$key]);
+                }
+            }
+            break;
+        case 'woman':
+            foreach ($users as $key => $user) {
+                if ($user['gender'] !== 'woman') {
+                    unset($users[$key]);
+                }
+            }
+            break;
+        case 'covid':
+            foreach ($users as $key => $user) {
+                if ($user['age'] < 60) {
+                    unset($users[$key]);
+                }
+            }
+            break;
+        case 'dog':
+        case 'cat':
+        case 'horse':
+        case 'parrot':
+        case 'alligator':
+            foreach ($users as $key => $user) {
+                $index = array_search($_GET['filter'], $user['animals']);
+                if (false === $index) {
+                    unset($users[$key]);
+                }
+            }
+            break;
+        default:
+            break;
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -68,81 +116,86 @@ $merkel = $users[$merkelID];
     <h1>Статистика</h1>
     <ul>
         <?php foreach ($olderUser as $item) : ?>
-            <li>Самый старый пользователь: <?php echo $item['name'] .' '. $item['surname'] .' Возраст: '. $item['age']; ?></li>
+            <li>Самый старый
+                пользователь: <?php echo $item['name'] . ' ' . $item['surname'] . ' Возраст: ' . $item['age']; ?></li>
         <?php endforeach; ?>
-
         <li>Общее количество Юзеров: <?php echo count($users); ?></li>
     </ul>
     <table class="table table-hover">
         <thead class="thead-dark">
         <tr>
-            <td>index</td>
-            <td>Name:</td>
-            <td>Surname</td>
-            <td>Age:</td>
-            <td>Gender:</td>
-            <td>Avatar:</td>
-            <td>Animals:</td>
+            <th>
+                <a class="text-light"
+                   href="?sort=id&order=<?php echo(!empty($_GET['order'] && $_GET['order'] == 'desc') ? 'asc' : 'desc') ?>">#</a>
+            </th>
+            <th><a class="text-light" href="?sort=name">Name:</a></th>
+            <th><a class="text-light" href="?sort=surname">Surname:</a></th>
+            <th><a class="text-light" href="?sort=age">Age:</a></th>
+            <th><a class="text-light" href="?sort=genedr">Gender:</a></th>
+            <th><a class="text-light" href="?sort=avatar">Avatar:</a></th>
+            <th><a class="text-light" href="?sort=animals">Animals:</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td><?php echo $jackID; ?></td>
-            <td><?php echo $jack['name']; ?></td>
-            <td><?php echo $jack['surname']; ?></td>
-            <td><?php echo $jack['age'] ?></td>
-            <td><?php echo $jack['gender']; ?></td>
-            <td><img width="50px" src="<?php echo $jack['avatar']; ?>" alt="<?php echo $jack['name']; ?>"></td>
-            <td>
-                <ul>
-                    <?php foreach ($jack['animals'] as $item) : ?>
-                        <li>
-                            <?php echo $item; ?>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-            </td>
-        </tr>
-        <tr>
-            <td><?php echo $randomUserID; ?></td>
-            <td><?php echo $randomUser['name']; ?></td>
-            <td><?php echo $randomUser['surname']; ?></td>
-            <td><?php echo $randomUser['age']; ?></td>
-            <td><?php echo $randomUser['gender']; ?></td>
-            <td><img width="50px" src="<?php echo $randomUser['avatar'] ?>" alt="<?php echo $randomUser['name'] ?>">
-            </td>
-            <td>
-                <ul>
-                    <?php foreach ($randomUser['animals'] as $item) : ?>
-                        <li>
-                            <?php echo $item ?>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-            </td>
-        </tr>
-        <tr>
-            <td><?php echo $merkelID; ?></td>
-            <td><?php echo $merkel['name']; ?></td>
-            <td><?php echo $merkel['surname']; ?></td>
-            <td><?php echo $merkel['age']; ?></td>
-            <td><?php echo $merkel['gender']; ?></td>
-            <td><img width="50px" src="<?php echo $merkel['avatar'] ?>" alt="<?php echo $merkel['name'] ?>">
-            </td>
-            <td>
-                <ul>
-                    <?php sort($merkel['animals']) ?>
-                    <?php foreach ($merkel['animals'] as $item) : ?>
-                        <li>
-                            <?php echo $item ?>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-            </td>
-        </tr>
+        <?php foreach ($users as $key => $user) : ?>
+            <?php $id = (!empty($_GET['sort']) && $_GET['sort'] == 'id' && $_GET['order'] == 'desc') ? count($users) - $key : $key + 1; ?>
+            <tr>
+                <td><?php echo $id ?></td>
+                <td><?php echo $user['name'] ?></td>
+                <td><?php echo $user['surname'] ?></td>
+                <td><?php echo $user['age'] ?></td>
+                <td><?php echo $user['gender'] ?></td>
+                <td><img style="border-radius: 50%;object-fit: cover;width: 80px;height: 80px;"
+                         src="<?php echo $user['avatar'] ?>" alt="<?php echo $user['name']; ?>"></td>
+                <td>
+                    <?php $userAnimals = $user['animals'] ?>
+                    <ul>
+                        <?php foreach ($userAnimals as $animal) : ?>
+                            <li><?php echo $animal; ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+
         </tbody>
     </table>
-    <a class="button" href="user.php">Перейти на страницу регистрации</a>
+    <form method="get">
+        <div class="form-group">
+            <select name="filter" class="form-control">
+                <option selected disabled>Выбирите фильтр</option>
+                <option value="man">Только мужчины</option>
+                <option value="woman">Только женщины</option>
+                <option value="covid">Риск COVID</option>
+                <?php foreach ($animalsFilter as $animal) : ?>
+                    <option value="<?php echo $animal ?>"><?php echo $animal; ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        <button class="btn btn-primary">
+            Фильтровать
+        </button>
+        <a href="stats.php" class="btn btn-success">Сбросить</a>
+    </form>
+    <a class="btn btn-warning mt-3" href="user.php">Перейти на страницу регистрации</a>
 </div>
+
+
+<?php
+//$newLine = 0;
+//for ($i = ord('a'); $i <= ord('z'); $i++){
+//    $newLine = $i - 97 + 1;
+//    echo chr($i);
+//    if($newLine % 5 === 0) {
+//         echo '<br>';
+//    }
+//}
+
+//for ($i = 0; $i < count($users); $i++){
+//    echo $users[$i]['name'] . ' ' . 'index: ' . $i;
+//    echo '<br>';
+//}
+
+?>
 </body>
 </html>
