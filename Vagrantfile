@@ -68,5 +68,5 @@ Vagrant.configure("2") do |config|
   #   apt-get install -y apache2
   # SHELL
   config.vm.provision "file", source: "environment/.bashrc", destination: "$HOME/.bashrc"
-  # config.vm.provision :shell, path: "environment/bootstrap.sh"
+  config.vm.provision :shell, path: "environment/bootstrap.sh"
 end
