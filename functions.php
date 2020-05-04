@@ -1,45 +1,56 @@
 <?php
+$users = require 'db.php';
 
 function helloWorld($username){
     return  "Hello World $username";
 }
 
-$users = [
-    [
-        'name' => 'Bob',
-        'surname' => 'Martin',
-        'age' => 75,
-        'gender' => 'man',
-        'avatar' => 'https://i.ytimg.com/vi/sDnPs_V8M-c/hqdefault.jpg',
-        'animals' => ['dog', 'horse']
-    ],
-    [
-        'name' => 'Alice',
-        'surname' => 'Merton',
-        'age' => 25,
-        'gender' => 'woman',
-        'avatar' => 'https://i.scdn.co/image/d44a5d71596b03b5dc6f5bbcc789458700038951',
-        'animals' => ['dog', 'cat']
-    ],
-    [
-        'name' => 'Jack',
-        'surname' => 'Sparrow',
-        'age' => 45,
-        'gender' => 'man',
-        'avatar' => 'https://pbs.twimg.com/profile_images/427547618600710144/wCeLVpBa_400x400.jpeg',
-        'animals' => ['cat', 'dog', 'parrot']
-    ],
-    [
-        'name' => 'Angela',
-        'surname' => 'Merkel',
-        'age' => 60,
-        'gender' => 'woman',
-        'avatar' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Besuch_Bundeskanzlerin_Angela_Merkel_im_Rathaus_K%C3%B6ln-09916.jpg/330px-Besuch_Bundeskanzlerin_Angela_Merkel_im_Rathaus_K%C3%B6ln-09916.jpg',
-        'animals' => ['alligator', 'horse', 'dog']
-    ]
-];
+
 if (!empty($_POST)) {
-    $users[] = $_POST;
+    $err = createUser();
+
+    if (!empty($err)) {
+        $errorString = '';
+        foreach ($err as $key => $message){
+            $errorString .= "error[$key]=$message&";
+        }
+        header('Location: /user.php?' . $errorString);
+    }
+}
+
+function createUser(array $data = []){
+    opcache_invalidate('db.php');
+    $users = require 'db.php';
+    $user = empty($data) ? $_POST : $data;
+    $error = [];
+    if (empty($user['name'])) {
+        $error['name'] = 'Имя не может быть пустым';
+    }
+    if (empty($user['surname'])) {
+        $error['surname'] = 'Фамилия не может быть пустой';
+    }
+    if (empty($user['age']) || $user['age'] < 1) {
+        $error['age'] = 'Возраст задан некорректно';
+    }
+    if (empty($user['email'])) {
+        $error['email'] = 'Почта задана некорректно';
+    }
+    if (!empty($error)) {
+        return $error;
+    }
+
+    $user['animals'] = [];
+    if($_POST['gender'] === 'Man'){
+        $user['avatar'] = 'https://i.ya-webdesign.com/images/avatar-png-1.png';
+    }
+    if($_POST['gender'] === 'Woman'){
+        $user['avatar'] = 'https://cdn2.iconfinder.com/data/icons/circle-avatars-1/128/050_girl_avatar_profile_woman_suit_student_officer-512.png';
+    }
+    $users[] = $user;
+    $content = "<?php" . PHP_EOL;
+    $content = $content . "return " . var_export($users,1);
+    $content .= ";";
+    file_put_contents('db.php', $content);
 }
 
 function sortFields($userA, $userB){

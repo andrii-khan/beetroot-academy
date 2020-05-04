@@ -1,7 +1,6 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', true);
-
 require './functions.php';
 
 ?>
@@ -16,6 +15,19 @@ require './functions.php';
 </head>
 <body>
 <div class="container">
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="export.php">Экспорт</a>
+        <form method="post" enctype="multipart/form-data" action="import.php">
+            <div class="input-group">
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="inputGroupFile04" name="import">
+                    <label class="custom-file-label" for="inputGroupFile04">Выбрать файл</label>
+                </div>
+                <button class="btn btn-outline-secondary" type="submit">Загрузить</button>
+            </div>
+        </form>
+    </nav>
+
     <h1><?php echo helloWorld('Mike') ?></h1>
     <h1>Статистика</h1>
     <ul>

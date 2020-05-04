@@ -1,24 +1,10 @@
 <?php
-$error = [];
-if (!empty($_POST)) {
-    if (empty($_POST['name'])) {
-        $error['name'] = 'Имя не может пустым';
-    }
-    if (empty($_POST['surname'])) {
-        $error['surname'] = 'Фамилия не может пустой';
-    }
-    if (empty($_POST['age']) || $_POST['age'] < 1) {
-        $error['age'] = 'Возраст задан некорректно';
-    }
-    if (empty($_POST['email'])) {
-        $error['email'] = 'Почта задана некорректно';
-    }
-}
+$error = $_GET['error'] ?? [];
 $lang = (!empty($_GET['lang'])) ? $_GET['lang'] : 'ru';
 $labels = [
-        'ru' => ['name' => 'Имя:', 'surname' => 'Фамилия:', 'age' => 'Возраст:', 'email' => 'Почта:', 'gender' => 'Выберите Пол:', 'send' => 'Отправить', 'title' => 'Форма Регистрации'],
-        'ua' => ['name' => "Ім'я", 'surname' => 'Призвіще:', 'age' => 'Вік:', 'email' => 'Пошта:', 'gender' => 'Оберіть Стать:', 'send' => 'Відправити','title' => 'Форма Реєстрації'],
-        'en' => ['name' => 'Name:', 'surname' => 'Surname:', 'age' => 'Age:', 'email' => 'Email:', 'gender' => 'Select Gender:', 'send' => 'Send','title' => 'Registration Form'],
+        'ru' => ['name' => 'Имя:', 'surname' => 'Фамилия:', 'age' => 'Возраст:', 'email' => 'Почта:', 'gender' => 'Выберите Пол:', 'send' => 'Отправить', 'title' => 'Форма Регистрации', 'password' => 'Пароль'],
+        'ua' => ['name' => "Ім'я", 'surname' => 'Призвіще:', 'age' => 'Вік:', 'email' => 'Пошта:', 'gender' => 'Оберіть Стать:', 'send' => 'Відправити','title' => 'Форма Реєстрації', 'password' => 'Пароль'],
+        'en' => ['name' => 'Name:', 'surname' => 'Surname:', 'age' => 'Age:', 'email' => 'Email:', 'gender' => 'Select Gender:', 'send' => 'Send','title' => 'Registration Form', 'password' => 'Password'],
 ];
 
 switch ($lang) {
@@ -82,8 +68,7 @@ switch ($lang) {
         </div>
         <div class="form-group">
             <label for="surnme"><?php echo $translation['surname']; ?></label>
-            <input type="text" class="form-control" id="surnme" name="surname"
-                   placeholder="Введите Фамилию"
+            <input type="text" class="form-control" id="surnme" name="surname" placeholder="Введите Фамилию"
                    <?php if ($_POST['surname']): ?>value="<?php echo $_POST['surname'] ?>"<?php endif; ?>">
             <?php if (!empty($error['surname'])) : ?>
                 <small class="text-danger">
@@ -102,6 +87,16 @@ switch ($lang) {
             <?php endif; ?>
         </div>
         <div class="form-group">
+            <?php $gender = empty($_POST['gender']) ? 'Other' : $_POST['gender']; ?>
+            <label for="gender"><?php echo $translation['gender']; ?></label>
+            <select class="form-control" id="gender" name="gender">
+                <option disabled selected>Выберите пол</option>
+                <option <?php echo $_POST['gender'] == 'Man' ? 'selected' : '' ?>>Man</option>
+                <option <?php echo $_POST['gender'] == 'Woman' ? 'selected' : '' ?>>Woman</option>
+                <option <?php echo $_POST['gender'] == 'Other' ? 'selected' : '' ?>>Others</option>
+            </select>
+        </div>
+        <div class="form-group">
             <label for="email"><?php echo $translation['email']; ?></label>
             <input type="email" class="form-control" id="email" name="email" placeholder="Введите Email"
                    <?php if ($_POST['email']): ?>value="<?php echo $_POST['email'] ?>" <?php endif; ?>>
@@ -112,14 +107,9 @@ switch ($lang) {
             <?php endif; ?>
         </div>
         <div class="form-group">
-            <?php $gender = empty($_POST['gender']) ? 'Other' : $_POST['gender']; ?>
-            <label for="gender"><?php echo $translation['gender']; ?></label>
-            <select class="form-control" id="gender" name="gender">
-                <option disabled selected>Выберите пол</option>
-                <option <?php echo $_POST['gender'] == 'Man' ? 'selected' : '' ?>>Man</option>
-                <option <?php echo $_POST['gender'] == 'Woman' ? 'selected' : '' ?>>Woman</option>
-                <option <?php echo $_POST['gender'] == 'Other' ? 'selected' : '' ?>>Others</option>
-            </select>
+            <label for="password"><?php echo $translation['password']; ?></label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Введите пароль"
+                   <?php if ($_POST['password']): ?>value="<?php echo $_POST['password'] ?>" <?php endif; ?>>
         </div>
         <button type="submit" class="btn btn-primary"><?php echo $translation['send']; ?></button>
     </form>
