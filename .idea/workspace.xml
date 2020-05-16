@@ -2,20 +2,30 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f0bba076-f0eb-4213-8791-b4f7683c5bc1" name="Default Changelist" comment="Finish import/export tools">
-      <change afterPath="$PROJECT_DIR$/lessons/footer.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lessons/header.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lessons/logout.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lessons/style.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/parser/footer.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/parser/function.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/parser/header.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lessons/db.php" beforeDir="false" afterPath="$PROJECT_DIR$/lessons/db.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lessons/export.php" beforeDir="false" afterPath="$PROJECT_DIR$/lessons/export.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lessons/functions.php" beforeDir="false" afterPath="$PROJECT_DIR$/lessons/functions.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lessons/import.php" beforeDir="false" afterPath="$PROJECT_DIR$/lessons/import.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lessons/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/lessons/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lessons/stats.php" beforeDir="false" afterPath="$PROJECT_DIR$/lessons/stats.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lessons/user.php" beforeDir="false" afterPath="$PROJECT_DIR$/lessons/user.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/$CACHE_FILE$" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/back.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/db/.vagrant/machines/default/virtualbox/action_provision" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/db/.vagrant/machines/default/virtualbox/action_set_name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/db/.vagrant/machines/default/virtualbox/box_meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/db/.vagrant/machines/default/virtualbox/creator_uid" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/db/.vagrant/machines/default/virtualbox/id" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/db/.vagrant/machines/default/virtualbox/index_uuid" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/db/.vagrant/machines/default/virtualbox/private_key" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/db/.vagrant/machines/default/virtualbox/synced_folders" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/db/.vagrant/machines/default/virtualbox/vagrant_cwd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/db/.vagrant/rgloader/loader.rb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/db/Vagrantfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/db/environment/.bashrc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/db/environment/bootstrap.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/db/environment/xdebug.ini" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/db/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -150,7 +160,7 @@
       <workItem from="1589022089856" duration="4659000" />
       <workItem from="1589377331226" duration="8364000" />
       <workItem from="1589562845926" duration="2364000" />
-      <workItem from="1589619467542" duration="454000" />
+      <workItem from="1589619467542" duration="1126000" />
     </task>
     <servers />
   </component>
