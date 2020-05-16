@@ -1,0 +1,4 @@
+.vagrant
+.idea
+tmp/*
+!tmp/.gitkeep
