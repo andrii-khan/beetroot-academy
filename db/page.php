@@ -29,34 +29,7 @@ print_r($book);
 
 <body>
 
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <div class="container">
-        <a class="navbar-brand" href="index.php">Start Bootstrap</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="index.php">Home
-                        <span class="sr-only">(current)</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Services</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<?php require_once './templates/header.php'?>
 
 <!-- Page Content -->
 <div class="container">
@@ -80,10 +53,18 @@ print_r($book);
                 <img class="card-img-top img-fluid" src="http://placehold.it/900x400" alt="">
                 <div class="card-body">
                     <h3 class="card-title"><?php echo $book['title'] ?> - <?php echo $book['author'] ?></h3>
-                    <h4>$24.99</h4>
+                    <h4>₴ <?php echo $book['cost'] ?></h4>
                     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit
                         fugiat hic aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur
                         praesentium animi perspiciatis molestias iure, ducimus!</p>
+                    <form class="form-inline" action="add_to_cart.php" method="post">
+                        <div class="form-group">
+                            <label for="count">Количество: </label>
+                            <input type="hidden" name="book_id" value="<?php echo $book['book_id']; ?>">
+                            <input type="number"  class="form-control" min="1" value="1" id="count" name="count" />
+                        </div>
+                        <button type="submit" class="btn btn-success">Добавить в Корзину</button>
+                    </form>
                 </div>
             </div>
             <!-- /.card -->
